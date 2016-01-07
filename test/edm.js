@@ -16,10 +16,10 @@ test('type number', function (t) {
 });
 
 test('type double', function (t) {
-  t.plan(2);
+  t.plan(3);
 
   var p = new Parser();
-  var expected = [ 1, {doubleNumber: 1, 'doubleNumber@odata.type': 'Edm.Double'} ];
+  var expected = [ 'Edm.Double', 1, {doubleNumber: 1, 'doubleNumber@odata.type': 'Edm.Double'} ];
   expected.push(expected.slice());
   
   p.onValue = function (value) {
@@ -30,7 +30,7 @@ test('type double', function (t) {
 });
 
 test('full odata entity', function (t) {
-  t.plan(14);
+  t.plan(15);
 
   var p = new Parser();
   var expected = [ 'http://test.table.core.windows.net/$metadata#tty/@Element',
@@ -42,6 +42,7 @@ test('full odata entity', function (t) {
     '0001',
     'Edm.DateTime',
     '2016-01-07T02:59:28.6909359Z',
+    'Edm.Double',
     1,
     2,
     'Edm.Int64',

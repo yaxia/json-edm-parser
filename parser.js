@@ -49,7 +49,7 @@ var onToken = function (token, value) {
   function additionalEmit(additionalKey, additionalValue) {
     var oldKey = self.internalParser.key;
     self.internalParser.key = additionalKey;
-    self.onValue(additionalValue);
+    self.internalParser.onValue(additionalValue);
     self.internalParser.key = oldKey;
   }
 

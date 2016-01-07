@@ -19,6 +19,8 @@ var Parser = require('json-edm-parser');
 
 var p = new Parser();
 p.write('{ "doubleNumber": 1.0 }');
+
+// You will get {doubleNumber: 1, 'doubleNumber@odata.type': 'Edm.Double'}
 p.onValue = function (value) {
   // Deal with the value
 };
