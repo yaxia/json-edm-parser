@@ -46,12 +46,12 @@ test('full odata entity', function (t) {
     1,
     2,
     'Edm.Int64',
-    10,
+    '1234567890123456789',
     { DoubleValue: 1, 
       'DoubleValue@odata.type': 'Edm.Double', 
       Int32Value: 2,
       'Int64Value@odata.type': 'Edm.Int64',
-      Int64Value: 10,
+      Int64Value: "1234567890123456789",
       PartitionKey: 'AAA', 
       RowKey: '0001', 
       Timestamp: '2016-01-07T02:59:28.6909359Z', 
@@ -82,6 +82,6 @@ test('full odata entity', function (t) {
   p.write('"DoubleValue":1.0,');
   p.write('"Int32Value":2,');
   p.write('"Int64Value@odata.type":"Edm.Int64",');
-  p.write('"Int64Value":10');
+  p.write('"Int64Value":1234567890123456789');
   p.write('}');
 });

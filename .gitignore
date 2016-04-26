@@ -2,6 +2,9 @@
 logs
 *.log
 
+# Debug
+debug.js
+
 # Runtime data
 pids
 *.pid
