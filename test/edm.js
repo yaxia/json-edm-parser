@@ -19,7 +19,7 @@ test('type double', function (t) {
   t.plan(3);
 
   var p = new Parser();
-  var expected = [ 'Edm.Double', 1, {doubleNumber: 1, 'doubleNumber@odata.type': 'Edm.Double'} ];
+  var expected = [ 'Edm.Double', '1.0', {doubleNumber: '1.0', 'doubleNumber@odata.type': 'Edm.Double'} ];
   expected.push(expected.slice());
   
   p.onValue = function (value) {
@@ -29,8 +29,22 @@ test('type double', function (t) {
   p.write('{ "doubleNumber": 1.0 }');
 });
 
+test('type large double', function (t) {
+  t.plan(3);
+
+  var p = new Parser();
+  var expected = [ 'Edm.Double', '1234567898765432123456.0123456789876543210', {doubleNumber: '1234567898765432123456.0123456789876543210', 'doubleNumber@odata.type': 'Edm.Double'} ];
+  expected.push(expected.slice());
+  
+  p.onValue = function (value) {
+    t.deepEqual(value, expected.shift());
+  };
+
+  p.write('{ "doubleNumber": 1234567898765432123456.0123456789876543210 }');
+});
+
 test('full odata entity', function (t) {
-  t.plan(15);
+  t.plan(17);
 
   var p = new Parser();
   var expected = [ 'http://test.table.core.windows.net/$metadata#tty/@Element',
@@ -43,12 +57,16 @@ test('full odata entity', function (t) {
     'Edm.DateTime',
     '2016-01-07T02:59:28.6909359Z',
     'Edm.Double',
-    1,
+    '1.0',
+    'Edm.Double',
+    '1234567898765432123456.0123456789876543210',
     2,
     'Edm.Int64',
     '1234567890123456789',
-    { DoubleValue: 1, 
+    { DoubleValue: '1.0',
       'DoubleValue@odata.type': 'Edm.Double', 
+      DoubleLargeValue: '1234567898765432123456.0123456789876543210', 
+      'DoubleLargeValue@odata.type': 'Edm.Double',
       Int32Value: 2,
       'Int64Value@odata.type': 'Edm.Int64',
       Int64Value: "1234567890123456789",
@@ -80,6 +98,7 @@ test('full odata entity', function (t) {
   p.write('"Timestamp@odata.type":"Edm.DateTime",');
   p.write('"Timestamp":"2016-01-07T02:59:28.6909359Z",');
   p.write('"DoubleValue":1.0,');
+  p.write('"DoubleLargeValue":1234567898765432123456.0123456789876543210,');
   p.write('"Int32Value":2,');
   p.write('"Int64Value@odata.type":"Edm.Int64",');
   p.write('"Int64Value":1234567890123456789');

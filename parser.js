@@ -46,6 +46,7 @@ function Parser() {
 */
 var onToken = function (token, value) {
   var self = this;
+  var emitString = false;
   function additionalEmit(additionalKey, additionalValue) {
     var oldKey = self.internalParser.key;
     self.internalParser.key = additionalKey;
@@ -68,9 +69,16 @@ var onToken = function (token, value) {
         this.internalParser.value[typeKey] = 'Edm.Double';
       }
       additionalEmit(typeKey, 'Edm.Double');
+      
+      // Determine whether return raw string to avoid losing precision
+      emitString = this.internalParser.string !== value.toString();
     }
   }
-  this.originalOnToken.call(this.internalParser, token, value);
+  if (emitString) {
+    this.originalOnToken.call(this.internalParser, token, this.internalParser.string);
+  } else {
+    this.originalOnToken.call(this.internalParser, token, value);
+  }
 };
 
 Parser.C = JsonParser.C;

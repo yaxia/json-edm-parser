@@ -1,6 +1,6 @@
 {
   "name": "json-edm-parser",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "This is a JSON streaming parser for node.js. It will handle the Entity Data Model (EDM) types to be compatitable with odata.",
   "main": "parser.js",
   "repository": {

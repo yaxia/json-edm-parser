@@ -30,4 +30,7 @@ p.onValue = function (value) {
   console.log('[T] value:' + util.inspect(value));
 };
 
-p.write('{ "doubleNumber": 1.1 }');
+p.write('{ "doubleIntNumber": 12.00,');
+p.write('"doubleNormalNumber": 1.2,');
+p.write('"doubleLargeNumber": 12345678901234546789.0000000000000000000000000001,');
+p.write('"int64LargeNumber": 12345678901234567890123456789}');
